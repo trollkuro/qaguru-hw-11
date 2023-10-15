@@ -1,0 +1,10 @@
+{
+"name":"John",
+"age":30,
+"cars":["Ford", "BMW", "Fiat"],
+"family": {
+	"pet": "cat",	
+	"has_siblings": true, 
+	"is_married": false
+}
+}
