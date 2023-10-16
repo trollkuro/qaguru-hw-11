@@ -25,17 +25,18 @@ public class PersonalData {
 
     public static class FamilyModel {
         private String pet;
+        @JsonProperty("has_siblings")
         private Boolean hasSiblings;
+        @JsonProperty("is_married")
         private Boolean isMarried;
 
         public String getPet() {
             return pet;
         }
-        @JsonProperty("has_siblings")
         public Boolean getHasSiblings() {
+
             return hasSiblings;
         }
-        @JsonProperty("is_married")
         public Boolean getMarried() {
             return isMarried;
         }

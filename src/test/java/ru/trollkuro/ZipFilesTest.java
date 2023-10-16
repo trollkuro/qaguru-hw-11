@@ -15,7 +15,7 @@ public class ZipFilesTest {
     ClassLoader cl = ZipFilesTest.class.getClassLoader();
 
     @Test
-    void zipTest() throws Exception{
+    void zipTestCsv() throws Exception{
         try (InputStream stream = cl.getResourceAsStream("qa guru.zip");
              ZipInputStream zis = new ZipInputStream(stream)) {
 
@@ -34,7 +34,17 @@ public class ZipFilesTest {
                     final String[] secondRow = content.get(1);
                     Assertions.assertArrayEquals(new String[] {"Season", " summer"}, secondRow);
                 }
-                //check xlsx
+            }
+        }
+    }
+
+    @Test
+    void zipTestXlsx() throws Exception {
+        try (InputStream stream = cl.getResourceAsStream("qa guru.zip");
+             ZipInputStream zis = new ZipInputStream(stream)) {
+
+            ZipEntry entry;
+            while ((entry = zis.getNextEntry()) != null) {
                 if (entry.getName().contains("xlsx")){
                     XLS xls = new XLS(zis);
                     final String nickname = xls.excel.getSheetAt(1).getRow(3).getCell(1).getStringCellValue();
@@ -46,7 +56,18 @@ public class ZipFilesTest {
                     //check number of sheets
                     Assertions.assertEquals(2, sheetCount);
                 }
-                //check pdf
+            }
+        }
+    }
+
+    @Test
+    void zipTestPdf() throws Exception {
+        try (InputStream stream = cl.getResourceAsStream("qa guru.zip");
+             ZipInputStream zis = new ZipInputStream(stream)) {
+
+            ZipEntry entry;
+
+            while ((entry = zis.getNextEntry()) != null) {
                 if (entry.getName().contains("pdf")){
                     PDF pdf = new PDF(zis);
 
@@ -59,7 +80,6 @@ public class ZipFilesTest {
                     //check title
                     Assertions.assertEquals("Article about cats", pdf.title);
                 }
-
             }
         }
     }
